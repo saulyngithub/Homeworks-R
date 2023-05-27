@@ -1,0 +1,56 @@
+```{r}
+#JAIME SAUL VICENTE MALDONADO
+#CUI: 1922953730101
+#CARNET: 999004067
+#Construya una matriz de 5 x 5 con valores aleatorios decimales que vayan en un rango de 160 a 200. Esta matriz contendrá los pesos (en libras) de varias personas. Asigne un nombre descriptivo a esta matriz
+
+matrix_pesos <- matrix(nrow = 5, ncol = 5)
+
+valores_matrix_pesos <- runif(25, 160, 200)
+matrix_pesos[] <- valores_matrix_pesos
+
+print(matrix_pesos)
+```
+```{r}
+#Asigne los meses enero a mayo como nombre de cada columna.
+
+colnames(matrix_pesos) <- c("enero", "febrero", "marzo", "abril", "mayo")
+print(matrix_pesos)
+```
+
+```{r}
+#Asigne 5 nombres de persona, que sean aleatorios y que se utilicen como nombre de cada fila.
+install.packages("randomNames")
+library(randomNames)
+nombres <- randomNames(5)
+rownames(matrix_pesos) <- nombres
+print(matrix_pesos)
+
+```
+```{r}
+#Construya un vector que contenga el peso promedio de cada persona durante los meses de enero a mayo. (Investigue una función similar a rowSums pero para promediar)
+
+peso_promedio_persona <- rowMeans(matrix_pesos)
+print(peso_promedio_persona)
+
+
+```
+```{r}
+#Construya un vector que contenga el peso promedio en cada mes para todas las personas. (Investigue una función similar a colSums pero para promediar)
+
+peso_promedio <- colMeans(matrix_pesos)
+print(peso_promedio)
+```
+```{r}
+#Utilice cbind y rbind para agregar la columna y fila promedio.
+
+matrix_col_promedio <- cbind(matrix_pesos, Peso = peso_promedio)
+print(matrix_col_promedio)
+
+matrix_resultante <- rbind(matrix_con_columna_promedio, Peso = rep(NA, ncol(matrix_con_columna_promedio)))
+matriz_resultante[nrow(matriz_resultante), ] <- c(peso_promedio_persona, NA)
+print(matriz_resultante)
+
+
+```
+
