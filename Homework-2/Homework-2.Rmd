@@ -1,0 +1,70 @@
+```{r}
+# Jaime Saul Vicente Maldonado
+# HOMEWORK-2
+# ********************FUNCIONES EN R#********************
+# Una función permite escribir un fragmento de código parametrizado. De esta forma, es posible escribir un bloque de código y ejecutarlo para distintos datos. Una función puede considerarse un subprograma que resuelve una subtarea. Un motivo para utilizar funciones es que permiten estructurar u organizar el código de un programa. Cuando hay que resolver un problema complejo, en lugar de intentar solucionarlo mediante un programa muy extenso es mejor descomponerlo en subproblemas. Los subproblemas deben tener una complejidad moderada, de forma que sean resueltos por subprogramas (como las funciones) sencillos.
+
+# ********************ESTRUCTURA DE UNA FUNCION#********************
+# Una funcion tiene tipos de elementos:
+# 1- Argumentos (o valores de entrada).
+# 2- Cuerpo: operaciones que han de realizarse. Se deben localizar entre corchetes "{}”.
+# 3- Resultado (o valores de salida): la última expresión que se ejecuta.
+
+# nombre <- function(argumentos){
+#   operaciones
+#     }
+
+# ********************EJEMPLO DE UNA FUNCION********************
+# A continuación se escribira una funcion que calcula el area de un rectangulo segun dados sus lados:
+area_rectangulo <- function(ladoA,ladoB){
+  ladoA*ladoB
+}
+# ********************ARGUMENTOS DE UNA FUNCION********************
+# Los argumentos son las variables que necesita la función para realizar sus operaciones. Aparecen entre paréntesis, separados por comas. Los valores son asignados al nombre del argumento por el usuario cada vez que ejecuta una función. Esto permite que usemos nuestras funciones en distintas situaciones con diferentes datos y especificaciones.
+# Los argumentos pueden ser datos, estructuras de datos, conexiones a archivos u otras funciones y todos deben tener nombres diferentes.
+
+
+# ********************ARGUMENTOS POR VALOR********************
+
+# Al introducir los valores de la variable en la funcion se consigue el area de un rectangulo, en este caso en particular se ingresa 2 y 3 por lado:
+
+area_rectangulo(2,3)
+
+# Obteniendo 6 por area.
+
+
+# ********************FAMILIA APPLY********************
+
+# La función apply() en R aplica una función a un dataframe, matriz, lista o vector, eligiendo si se va a aplicar a las filas o a las columnas. El resultado de esta función depende del tipo de objeto (lista, vector, etc…) que se utiliza (x).
+
+# ********************lapply********************
+# apply(x, MARGIN, FUN)
+# x : matriz, dataframe, lista o vector.
+# MARGIN: 1 para operar sobre las filas y 2 para operar sobre las columnas.
+# FUN: Función que se aplica sobre filas o columnas.
+
+df = data.frame("NOMBRES" = c("Ana","Javier","José","Juan","Miguel","María"),
+                "LUGAR_ASISTIR" = c("Lugar1", "Lugar2", "Lugar1", "Lugar2", "Lugar1", "Lugar1"),
+                "DIAS_ASISTIDOS" = c(8,7,10,5,6,10),
+                "DIAS_TOTALES" = c(10,10,10,10,10,10))
+
+lapply(df[,c(3,4)], mean)
+
+
+# ********************sapply********************
+# La función sapply() en R está hecha para realizarle operaciones a una lista, pero igual admite otro tipo de objeto La diferencia con la función apply() es que la función devuelve un vector.
+
+# sapply(x, FUN)
+# x : matriz, dataframe, lista o vector.
+# FUN: Función que se aplica sobre filas o columnas.
+
+#Ejemplo: Queremos calcular los días promedio asistidos y totales por todos los niños.
+
+sapply(df[,c(3,4)], mean)
+
+# ********************vapply********************
+# Devuelve un vector con la longitud que tiene cada una de las listas introducidas como parámetro.
+
+vapply(df[c(3,4)], mean, double(1))
+```
+
