@@ -1,0 +1,134 @@
+```{r}
+# HOMEWORK 3
+# JAIME SAUL VICENTE MALDONADO
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#*Investigue cómo leer un archivo CSV desde R.
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# instalar paquete readr
+install.packages("readr")
+ 
+# cargar paquete readr
+library(readr)
+
+# Por defecto coma (,) como separador y punto (.) como separador decimal
+read.csv(file,                 # Nombre del archivo o ruta completa del archivo
+         header = TRUE,        # Leer el encabezado (TRUE) o no (FALSE)
+         sep = ",",            # Separador de los valores
+         quote = "\"",         # Caracter de citaciones
+         dec = ".",            # Punto decimal
+         fill = TRUE,          # Rellenar celdas vacías (TRUE) o no (FALSE)
+         comment.char = "",    # Carácter de los comentarios o cadenas vacías
+         encoding = "unknown", # Codificación del archivo
+         ...)                  # Argumentos adicionales
+
+# Por defecto punto y coma (;) como separador y coma (,) como separador decimal
+read.csv2(file, header = TRUE, sep = ";", quote = "\"", dec = ",",
+          fill = TRUE, comment.char = "", encoding = "unknown", ...)
+
+# buscar la ruta del archivo de csv se puede usar la función:
+file.choose()
+
+#leyendo archivo csv con encabezados:
+read.csv(file.choose(),header = TRUE, sep = ",")
+
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#Investigue acerca de la función select() de la paquetería de dplyr.
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#La función select es usada para seleccionar columnas de un data frame que se desee extraer. 
+
+#sintaxis:
+select(x, variables_to_select)
+library(dplyr)
+head(mtcars)
+
+```
+
+```{r}
+#seleccionando las columnas 1 y 3:
+select(mtcars,1,3)
+
+```
+```{r}
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#Lea el dataset compartido (primary_results.csv) y asignelo a la variable dataset_results.
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+dataset_results<-read.csv(file.choose(),header = TRUE, sep = ",")
+```
+```{r}
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#Aplique los conocimientos de filter, arrange, mutate y también select para desarrollar los siguientes ejercicios:
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#1. Filtrar todos los votos del estado de Florida.
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+library(dplyr)
+  filter(dataset_results, state=="Florida")
+
+```
+
+```{r}
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#2. Utilice operadores lógicos (& and |), según corresponda:
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#2.1. Filtrar votos para los candidatos Hillary Clinton o Donald Trump
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+filter(dataset_results, candidate=="Hillary Clinton" | candidate=="Bernie Sanders")
+
+```
+```{r}
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#2.2. Filtrar votos para el partido Demócrata y el condado Shelby
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+filter(dataset_results, party=="Democrat" & county=="Shelby")
+
+```
+```{r}
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#2.3. Filtrar votos para el estado de Alabama y que la cantidad de votos sea mayor a 15000.
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+filter(dataset_results, state=="Alabama" & votes>15000)
+```
+```{r}
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#3. Utilice la función select y arrange para el siguiente filtrado:
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#3.1. Filtrar votos para el estado de Texas y el condado Denton, seleccionando 
+#únicamente las columnas party, candidate, votes, luego ordene de forma
+#descendente por la columna votes.
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+arrange(select(filter(dataset_results, state=="Texas" & county=="Denton"),5,6,7),desc(votes))
+```
+```{r}
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#4. Utilice el verbo mutate y arrange para el siguiente filtrado:
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#4.1. Filtrar por el partido Republicano, que el candidato sea Ted Cruz en el estado de
+#Alaska, luego agregue una columna que se llame vote_count que sea la división de
+#votes por fraction_votes (votes/fraction_votes), finalmente ordene de forma
+#descendente por vote_count.
+#+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+filter(dataset_results, party == "Republican" & county == "Alaska" & candidate =="Ted Cruz")
+
+filter(dataset_results, candidate =="Ted Cruz")
+
+```
+
