@@ -126,9 +126,12 @@ arrange(select(filter(dataset_results, state=="Texas" & county=="Denton"),5,6,7)
 #votes por fraction_votes (votes/fraction_votes), finalmente ordene de forma
 #descendente por vote_count.
 #+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-filter(dataset_results, party == "Republican" & county == "Alaska" & candidate =="Ted Cruz")
 
-filter(dataset_results, candidate =="Ted Cruz")
+filter(dataset_results, state == "Alaska" & party == "Republican" & candidate =="Ted Cruz")%>%
+mutate(vote_count=votes/fraction_votes)%>%
+arrange(desc(vote_count))
+
+
 
 ```
 
