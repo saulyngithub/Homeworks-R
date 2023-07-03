@@ -137,5 +137,9 @@ arrange(desc(vote_count))
 ```{r}
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #actualizando para corregir comentario publico en GITHUB
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#actualizando para corregir nuevamente comentario publico en GITHUB
+
 ```
 
