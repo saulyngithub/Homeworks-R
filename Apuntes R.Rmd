@@ -1,0 +1,42 @@
+NOTAS
+
+Summarize Data
+
+Mean
+summarise(df,mean = mean(x1))
+
+Median
+summarise(df,median = median(x1))
+
+Sum
+summarise(df,sum = sum(x1))
+
+Standard Deviation
+summarise(df,sd = sd(x1))
+
+Interquartile
+summarise(df,interquartile = IQR(x1))
+
+Minimum
+summarise(df,minimum = min(x1))
+
+Maximum
+summarise(df,maximum = max(x1))
+
+Quantile
+summarise(df,quantile = quantile(x1))
+
+First Observation
+summarise(df,first = first(x1))
+
+Last observation
+summarise(df,last = last(x1))
+
+nth observation
+summarise(df,nth = nth(x1, 2))
+
+Number of occurrence
+summarise(df,count = n(x1))
+
+Number of distinct occurrence
+summarise(df,distinct = n_distinct(x1))
