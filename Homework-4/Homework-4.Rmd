@@ -76,5 +76,46 @@ filtered_price<-diamonds %>%
 ```{r}
 #4.3. Por último aplique faceting para la variable clarity y devuelva la parcela de gráficos.
 
+ggplot(filtered_price, aes(x = cut, y = depth)) +
+  geom_bar(stat = "identity") + 
+  facet_wrap(~ clarity) 
+```
+```{r}
+#4.4. Edite la estética y configure el parámetro fill con la variable clarity. Luego devuelva la parcela de gráficos con esta modificación.
+ggplot(filtered_price, aes(x = cut, y = depth))+
+  geom_bar(stat = "identity", aes(fill = clarity))  
+```
+
+```{r}
+
+#Grouping and summarizing*******************************************************************************************************************
+
+#1. Utilice diamonds para construir un agrupamiento por la variable cut, luego aplique summarize para encontrar la media de las variables x, y, z (los nombres de los valores sumarizados serán mediaX, mediaY, mediaZ, respectivamente). Asigne el resultado a la variable median_dimension_diamond, por último imprima la variable.
+
+library(gapminder)
+
+median_dimension_diamond <- diamonds %>%
+  group_by(cut) %>%
+  summarize(mediaX = median(x), mediaY = median(y),mediaZ = median(z))
+
+median_dimension_diamond
+```
+
+```{r}
+#2. Utilice diamonds para filtrar por la variable cut igual a Premium. Luego agrupe por la variable clarity y utilice summarize para encontrar minimo y maximo de price (los nombres de los valores sumarizados serán minPrice y maxPrice, respectivamente). Asigne el resultado a la variable cut_premium e imprima el valor de la variable.
+cut_premium <- diamonds %>% 
+  filter(cut == "Premium") %>% 
+  group_by(clarity) %>% 
+  summarize(minPrice = min(price), maxPrice = max(price))
+
+cut_premium
 
 ```
+
+```{r}
+#3. Construya un gráfico de barras y utilice cut_premium como set de datos, configure x=clarity, y=maxPrice y el color de relleno (fill) con la variable clarity. Por último devuelva el gráfico.
+ggplot(cut_premium, aes(x = clarity, y = maxPrice))+
+  geom_bar(stat = "identity", aes(fill = clarity))  
+
+```
+
